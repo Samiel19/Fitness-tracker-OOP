@@ -1,11 +1,31 @@
 class InfoMessage:
     """Информационное сообщение о тренировке."""
+    def __init__(self, 
+                 training_type,
+                 duration,
+                 distance,
+                 speed,
+                 calories
+                 ) -> None:
+        self.training_type = training_type
+        self.duration = duration
+        self.distance = distance
+        self.speed = speed
+        self.calories = calories
+
+
+    def get_message(self):
+        message = (f'Тип тренировки: {self.training_type}; '
+        f'Длительность: {self.duration} ч; '
+        f'Дистанция: {self.distance} км; '
+        f'Ср.скорость: {self.speed} км/ч; '
+        f'Потрачено ккал: {self.calories}.')
+        return message      
     
 
 
 class Training:
     """Базовый класс тренировки."""
-
     def __init__(self,
                  action: int,
                  duration: float,
@@ -36,12 +56,12 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        training_type = self.__name__
-        return (f'Тип тренировки: {training_type};'
-        f'Длительность: {self.duration} ч;'
-        f'Дистанция: {self.get_distance(self)} км;'
-        f'Ср.скорость: {self.get_mean_speed(self)} км/ч;')
-        
+        training_type = self.__class__.__name__
+        duration = round(self.duration, 3)
+        distance = round(self.get_distance(), 3)
+        speed = round(self.get_mean_speed(), 3)
+        calories = round(self.get_spent_calories(), 3)
+        return InfoMessage(training_type, duration, distance, speed, calories).get_message()
 
 
 class Running(Training):
@@ -129,15 +149,8 @@ if __name__ == '__main__':
         main(training)
 
 train = Running(15000, 1, 75)
-print(f'Расстояние {train.get_distance()}')
-print(f'Средняя скорость {train.get_mean_speed()}')
-print(f'Каллории {train.get_spent_calories()}')
 train2 = SportsWalking(9000, 1, 75, 180)
-print(train2.get_distance())
-print(train2.get_mean_speed())
-print(train2.get_spent_calories())
 train3 = Swimming(720, 1, 80, 25, 40)
-print(train3.get_distance())
-print(train3.get_mean_speed())
-print(train3.get_spent_calories())
-print(train.show_training_info)
+print(train.show_training_info())
+print(train2.show_training_info())
+print(train3.show_training_info())
