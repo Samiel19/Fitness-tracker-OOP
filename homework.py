@@ -12,12 +12,11 @@ class InfoMessage:
 
     def get_message(self) -> str:
         """Получить информационное сообщение."""
-        info = (f'Тип тренировки: {self.training_type}; '
+        return (f'Тип тренировки: {self.training_type}; '
                 f'Длительность: {self.duration:.3f} ч.; '
                 f'Дистанция: {self.distance:.3f} км; '
                 f'Ср. скорость: {self.speed:.3f} км/ч; '
                 f'Потрачено ккал: {self.calories:.3f}.')
-        return info
 
 
 @dataclass
@@ -111,10 +110,8 @@ def read_package(workout_type: str, data: list) -> Training:
         'RUN': Running,
         'WLK': SportsWalking
     }
-    if workout_type in workouts:
-        return workouts[workout_type](*data)
-    else:
-        raise Exception('Ошибка! Неверные данные.')
+
+    return workouts[workout_type](*data)
 
 
 def main(training: Training) -> None:
@@ -131,5 +128,10 @@ if __name__ == '__main__':
     ]
 
     for workout_type, data in packages:
-        training = read_package(workout_type, data)
-        main(training)
+        try:
+            training = read_package(workout_type, data)
+        except KeyError or SyntaxError:
+            pass
+            print('Ошибка! Неверные входные данные!')
+        else:
+            main(training)
