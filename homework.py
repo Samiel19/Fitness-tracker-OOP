@@ -76,10 +76,6 @@ class SportsWalking(Training):
     CALORIES_SPEED_HEIGHT_MULTIPLIER = 0.029
     KMH_IN_MSEC = 0.278
     CM_IN_M = 100
-    action: int
-    duration: float
-    weight: float
-    height: float
     height: float
 
     def get_spent_calories(self) -> float:
@@ -98,13 +94,8 @@ class Swimming(Training):
     LEN_STEP = 1.38
     CALORIES_MEAN_SPEED_SHIFT = 1.1
     CALORIES_WEIGHT_MULTIPLIER = 2
-    action: int
-    duration: float
-    weight: float
     length_pool: float
     count_pool: float
-    length_pool: float
-    count_pool: int
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
