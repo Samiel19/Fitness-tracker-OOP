@@ -13,10 +13,10 @@ class InfoMessage:
     def get_message(self) -> str:
         """Получить информационное сообщение."""
         info = (f'Тип тренировки: {self.training_type}; '
-                f'Длительность: {self.duration:0.3f} ч.; '
-                f'Дистанция: {self.distance:0.3f} км; '
-                f'Ср. скорость: {self.speed:0.3f} км/ч; '
-                f'Потрачено ккал: {self.calories:0.3f}.')
+                f'Длительность: {self.duration:.3f} ч.; '
+                f'Дистанция: {self.distance:.3f} км; '
+                f'Ср. скорость: {self.speed:.3f} км/ч; '
+                f'Потрачено ккал: {self.calories:.3f}.')
         return info
 
 
@@ -46,12 +46,11 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        training_type = self.__class__.__name__
-        duration = self.duration
-        distance = self.get_distance()
-        speed = self.get_mean_speed()
-        calories = self.get_spent_calories()
-        return InfoMessage(training_type, duration, distance, speed, calories)
+        return InfoMessage(self.__class__.__name__,
+                           self.duration,
+                           self.get_distance(),
+                           self.get_mean_speed(),
+                           self.get_spent_calories())
 
 
 class Running(Training):
