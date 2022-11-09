@@ -130,7 +130,7 @@ if __name__ == '__main__':
     for workout_type, data in packages:
         try:
             training = read_package(workout_type, data)
-        except KeyError or SyntaxError:
+        except KeyError:
             pass
             print('Ошибка! Неверные входные данные!')
         else:
