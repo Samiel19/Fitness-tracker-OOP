@@ -33,7 +33,7 @@ class Training:
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
         return self.action * self.LEN_STEP / self.M_IN_KM
-     
+
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения в км/ч."""
         return self.get_distance() / self.duration
@@ -63,7 +63,7 @@ class Running(Training):
                 + self.CALORIES_MEAN_SPEED_SHIFT)
                 * self.weight / self.M_IN_KM
                 * self.duration * self.MIN_IN_H)
-   
+
 
 @dataclass
 class SportsWalking(Training):
@@ -78,7 +78,7 @@ class SportsWalking(Training):
         """Получить потраченые каллории."""
         return ((self.CALORIES_WEIGHT_MULTIPLIER * self.weight
                 + ((self.get_mean_speed() * self.KMH_IN_MSEC) ** 2
-                / (self.height / self.CM_IN_M))
+                 / (self.height / self.CM_IN_M))
                 * self.CALORIES_SPEED_HEIGHT_MULTIPLIER
                 * self.weight) * self.duration * self.MIN_IN_H)
 
@@ -96,7 +96,7 @@ class Swimming(Training):
         """Получить среднюю скорость движения."""
         return (self.length_pool * self.count_pool
                 / self.M_IN_KM / self.duration)
- 
+
     def get_spent_calories(self) -> float:
         """Получить потраченые калории."""
         return ((self.get_mean_speed() + self.CALORIES_MEAN_SPEED_SHIFT)
